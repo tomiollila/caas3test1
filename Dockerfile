@@ -1,4 +1,4 @@
-FROM registry.mgr.suse.de/sles12sp2
+FROM suse/sles12sp3:2.0.2
 MAINTAINER SUSE Manager Team "castor.fi"
 
 ### Begin: These lines Required for use with {productname}
