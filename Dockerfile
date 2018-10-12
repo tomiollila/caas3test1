@@ -18,10 +18,10 @@ RUN echo "$repo" > /etc/zypp/repos.d/susemanager:dockerbuild.repo
 ### End: These lines required for use with {productname}
 
 # Add the package script
-ADD add_packages.sh /root/add_packages.sh
+#ADD add_packages.sh /root/add_packages.sh
 
 # Run the package script
-RUN /root/add_packages.sh
+#RUN /root/add_packages.sh
 
 # The RUN command adds commands like from the command line.
 RUN zypper refs && zypper refresh
@@ -33,7 +33,7 @@ RUN     zypper  --non-interactive in apache2 \
 
 	
 ADD index.html /srv/www/htdocs/
-ADD phpinfo.php /srv/www/htdocs/
+#ADD phpinfo.php /srv/www/htdocs/
 
 # CMD is the main command of the image. Docker images do not normally use systemd in the normal way so it is generally advised to run services manually.
 # In this example, I am starting apache manually.
@@ -43,4 +43,4 @@ CMD 	/usr/sbin/apachectl -D FOREGROUND
 EXPOSE	80
 
 # After building remove the repository path from image
-RUN rm -f /etc/zypp/repos.d/susemanager:dockerbuild.repo
+#RUN rm -f /etc/zypp/repos.d/susemanager:dockerbuild.repo
