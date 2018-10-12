@@ -1,4 +1,4 @@
-FROM suse/sles12sp3:2.0.2
+FROM opensuse:42.3
 MAINTAINER SUSE Manager Team "castor.fi"
 
 ### Begin: These lines Required for use with {productname}
