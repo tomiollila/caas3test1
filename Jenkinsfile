@@ -17,13 +17,6 @@ pipeline {
       }
       stage('Build') {
         agent any
-        when {
-          expression {
-            GIT_BRANCH = 'origin/' + sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-            return !(GIT_BRANCH == 'origin/master' || params.FORCE_FULL_BUILD)
-          }
-
-        }
         steps {
           withKubeConfig(credentialsId: 'jenkins-deploy1', serverUrl: 'https://kubernetes.default') {
             sh 'kubectl apply -f /home/jenkins/workspace/caas3test1_master/deploy/sles.yaml --namespace=castorlabsdev'
