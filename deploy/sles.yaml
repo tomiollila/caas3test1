@@ -1,0 +1,19 @@
+#sles.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app:  sles12sp3123
+  name: sles12sp3123-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sles12sp3123
+    spec:
+      containers:
+      - image: tomiollila/sles12sp3.1:0.1.0
+        name: sles12sp3123
+        ports:
+        - containerPort: 80 
