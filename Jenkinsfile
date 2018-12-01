@@ -4,29 +4,33 @@ pipeline {
     stage('Prepare') {
       steps {
         checkout([$class: 'GitSCM',
-                                                                                                    branches: [[name: "origin/${BRANCH_PATTERN}"]],
-                                                                                                    doGenerateSubmoduleConfigurations: false,
-                                                                                                    extensions: [[$class: 'LocalBranch']],
-                                                                                                    submoduleCfg: [],
-                                                                                                    userRemoteConfigs: [[
-                                                                                                                            url: 'https://github.com/tomiollila/caas3test1.git']]])
+                                                                                                            branches: [[name: "origin/${BRANCH_PATTERN}"]],
+                                                                                                            doGenerateSubmoduleConfigurations: false,
+                                                                                                            extensions: [[$class: 'LocalBranch']],
+                                                                                                            submoduleCfg: [],
+                                                                                                            userRemoteConfigs: [[
+                                                                                                                                      url: 'https://github.com/tomiollila/caas3test1.git']]])
           sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl'
           sh 'chmod +x ./kubectl && mv kubectl /usr/local/sbin'
           git(url: 'https://github.com/tomiollila/caas3test1.git', branch: 'master')
         }
       }
-      stage('Build') {
+      stage('Clear Old') {
         agent any
         steps {
           withKubeConfig(credentialsId: 'jenkins-deploy1', serverUrl: 'https://kubernetes.default') {
-            sh 'kubectl apply -f /home/jenkins/workspace/caas3test1_master/deploy/sles.yaml --namespace=castorlabsdev'
+            sh 'kubectl delete deployment hubcaas3test12 --namespace=castorlabsdev --force '
+            sleep 30
           }
 
         }
       }
-      stage('test') {
+      stage('Build') {
         steps {
-          echo 'done'
+          withKubeConfig(serverUrl: 'https://kubernetes.default', credentialsId: 'jenkins-deploy1') {
+            sh 'kubectl run hubcaas3test12 --image=tomiollila/caas3test12 --namespace=castorlabsdev'
+          }
+
         }
       }
     }
