@@ -13,13 +13,10 @@ pipeline {
 
       }
     }
-    stage('Build') {
+    stage('test') {
       steps {
-        withKubeConfig(serverUrl: 'https://kubernetes.default', credentialsId: 'jenkins-deploy1') {
-          sh 'kubectl run hubcaas3test12 --image=tomiollila/caas3test12 --namespace=castorlabsdev'
-        }
-
         containerLog(name: 'hubcaas3test12', limitBytes: 20, tailingLines: 20)
+        sh 'curl http://192.168.11.154:31063'
       }
     }
   }
