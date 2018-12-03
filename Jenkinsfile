@@ -11,7 +11,7 @@ pipeline {
           sh 'kubectl run hubcaas3test12 --image=tomiollila/caas3test12 --namespace=castorlabsdev'
         }
 
-        sleep 20
+        sleep 40
       }
     }
     stage('test') {
