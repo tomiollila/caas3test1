@@ -7,7 +7,7 @@ pipeline {
         sh 'chmod +x ./kubectl && mv kubectl /usr/local/sbin'
         withKubeConfig(serverUrl: 'https://kubernetes.default', credentialsId: 'jenkins-deploy1') {
           sh 'kubectl delete deployment hubcaas3test12 --namespace=castorlabsdev --force '
-          sleep 30
+          sleep(time: 10, unit: 'MINUTES')
           sh 'kubectl run hubcaas3test12 --image=tomiollila/caas3test12 --namespace=castorlabsdev'
         }
 
