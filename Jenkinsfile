@@ -17,7 +17,7 @@ pipeline {
     stage('test') {
       steps {
         containerLog(name: 'hubcaas3test12', limitBytes: 20, tailingLines: 20)
-        sh 'curl http://192.168.11.154:31063/ | grep h1 |awk {\'print $2" "$3\'}'
+        sh 'curl -Ls http://192.168.11.154:31063/ | grep h1 |awk {\'print $2" "$3\'}'
       }
     }
   }
