@@ -1,4 +1,4 @@
-FROM openSUSE Leap 15.1
+FROM opensuse
 MAINTAINER SUSE Manager Team "castor.fi"
 
 ### Begin: These lines Required for use with {productname}
